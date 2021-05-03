@@ -1,0 +1,9 @@
+  backend:
+    build: ./backend
+    image: movie-database-backend
+    container_name: movie-database-backend
+    networks:
+      - movie-database-network
+    ports:
+      - "4000:4000"
+    restart: unless-stopped

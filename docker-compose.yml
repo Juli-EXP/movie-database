@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  client:
+    build: ./client
+    image: movie-database-client
+    container_name: movie-database-client
+    networks:
+      - movie-database-network
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    image: movie-database-backend
+    container_name: movie-database-backend
+    networks:
+      - movie-database-network
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: password
+    ports:
+      - "5000:4000"
+    restart: unless-stopped
+
+  db:
+    image: mysql:latest
+    container_name: movie-database-db
+    networks:
+      - movie-database-network
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      #MYSQL_DATABASE:
+      #MYSQL_USER:
+      #MYSQL_PASSWORD:
+    volumes:
+      - ./database/sample.sql:/docker-entrypoint-initdb.d/sample.sql
+      - movie-database-db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:latest
+    container_name: movie-database-adminer
+    networks:
+      - movie-database-network
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+networks:
+  movie-database-network:
+    name: movie-database-network
+volumes:
+  movie-database-db_data:
+    external: true
