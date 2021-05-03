@@ -1,0 +1,4 @@
+backend/gradle
+backend/.gradle
+backend/gradlew
+backend/gradlew.bat
