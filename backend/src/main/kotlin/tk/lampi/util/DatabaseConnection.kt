@@ -6,14 +6,17 @@ import java.sql.SQLException
 
 
 object DatabaseConnection {
-    private const val url = "jdbc:mysql://localhost:3306/"
-    private const val database = "movie-database"
-    private const val user = "root"
-    private const val password = ""
+    private val host = System.getenv("DB_HOST") ?: "localhost"
+    private val username = System.getenv("DB_USERNAME") ?: "root"
+    private val password = System.getenv("DB_PASSWORD") ?: "password"
+    private val database = System.getenv("DB_DATABASE") ?: "movie-database"
+    private val url = "jdbc:mysql://$host:3306/"
+    private const val options = "?characterEncoding=utf8"
+
 
     @Throws(ClassNotFoundException::class, SQLException::class)
     fun getConnection(database: String = this.database): Connection {
         Class.forName("com.mysql.jdbc.Driver")
-        return DriverManager.getConnection(url + database, user, password)
+        return DriverManager.getConnection(url + database + options, username, password)
     }
 }
