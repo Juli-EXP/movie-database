@@ -8,6 +8,7 @@ object MovieService {
     private val connection = DatabaseConnection.getConnection()
 
 
+    //Turn a resultSet from sql to a kotlin class
     private fun resultToMovie(rs: ResultSet): Movie {
         return Movie(
             rs.getInt("movie_id"),
@@ -81,8 +82,23 @@ object MovieService {
     }
 
 
-    fun updateMovie(movieID: Int, movie: Movie) {
-        TODO()
+    fun updateMovie(movieID: Int, movie: Movie): Boolean {
+        val query = """
+            UPDATE movie
+            SET title = ?, director = ?, length = ?, release_date = ?, genre = ?, age_rating = ?
+            WHERE movie_id = ?                
+        """.trimIndent()
+
+        val ps = connection.prepareStatement(query)
+        ps.setString(1, movie.title)
+        ps.setString(2, movie.director)
+        ps.setInt(3, movie.length)
+        ps.setInt(4, (System.currentTimeMillis() / 1000).toInt())
+        ps.setString(5, movie.genre)
+        ps.setString(6, movie.ageRating)
+        ps.setInt(7, movieID)
+
+        return ps.executeUpdate() != 0
     }
 
     fun deleteMovie(movieID: Int) {
@@ -96,5 +112,11 @@ object MovieService {
         ps.setInt(1, movieID)
 
         ps.executeUpdate()
+    }
+
+    fun updateRating(movieID: Int) {
+        val query = """
+            
+        """.trimIndent()
     }
 }

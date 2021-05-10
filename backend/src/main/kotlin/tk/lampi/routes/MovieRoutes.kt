@@ -14,8 +14,8 @@ fun Route.movieRouting() {
     route("/movie") {
         get("{movieID}") {
             val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.NotFound)
-
             val movie: Movie
+
             try {
                 movie = MovieService.getMovie(movieID.toInt()) ?: return@get call.respond(HttpStatusCode.NoContent)
 
@@ -28,18 +28,24 @@ fun Route.movieRouting() {
 
         get {
             val movieList: ArrayList<Movie>
+
             try {
                 movieList = MovieService.getAllMovies() ?: return@get call.respond(HttpStatusCode.NoContent)
-                println("naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             } catch (e: Exception) {
                 return@get call.respond(HttpStatusCode.InternalServerError)
             }
 
-            return@get call.respond(movieList)
+            return@get if (movieList.isEmpty()) {
+                call.respond(HttpStatusCode.NoContent)
+            } else {
+                call.respond(movieList)
+            }
+
         }
 
         post {
             val success: Boolean
+
             try {
                 val movie = call.receive<Movie>()
                 success = MovieService.addMovie(movie)
@@ -47,18 +53,36 @@ fun Route.movieRouting() {
             } catch (e: ContentTransformationException) {
                 return@post call.respond(HttpStatusCode.BadRequest)
             } catch (e: Exception) {
+                e.printStackTrace()
                 return@post call.respond(HttpStatusCode.InternalServerError)
             }
 
             return@post if (success) {
-                call.respond(HttpStatusCode.Created)
+                call.respond(HttpStatusCode.OK)
             } else {
                 call.respond(HttpStatusCode.BadRequest)
             }
         }
 
         put("{movieID}") {
-            return@put call.respond(HttpStatusCode.NotImplemented)
+            val movieID = call.parameters["movieID"] ?: return@put call.respond(HttpStatusCode.NotFound)
+            val success: Boolean
+
+            try {
+                val movie = call.receive<Movie>()
+                success = MovieService.updateMovie(movieID.toInt(), movie)
+
+            } catch (e: ContentTransformationException) {
+                return@put call.respond(HttpStatusCode.BadRequest)
+            } catch (e: Exception) {
+                return@put call.respond(HttpStatusCode.InternalServerError)
+            }
+
+            return@put if (success) {
+                call.respond(HttpStatusCode.OK)
+            } else {
+                call.respond(HttpStatusCode.BadRequest)
+            }
         }
 
         delete("{movieID}") {
