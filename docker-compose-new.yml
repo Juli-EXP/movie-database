@@ -1,15 +1,8 @@
 version: "3.8"
 
 services:
-  client:
-    build: client-old
-    image: movie-database-client
-    container_name: movie-database-client
-    networks:
-      - movie-database-network
-    ports:
-      - "80:80"
-    restart: unless-stopped
+  #client
+  #nginx
 
   backend:
     build: ./backend
