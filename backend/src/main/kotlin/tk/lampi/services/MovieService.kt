@@ -24,7 +24,8 @@ object MovieService {
 
     fun getMovie(movieID: Int): Movie? {
         val query = """
-            SELECT * FROM movie
+            SELECT * 
+            FROM movie
             WHERE movie_id = ?
         """.trimIndent()
 
@@ -42,7 +43,8 @@ object MovieService {
 
     fun getAllMovies(): ArrayList<Movie>? {
         val query = """
-            SELECT * FROM movie
+            SELECT * 
+            FROM movie
         """.trimIndent()
 
         val ps = connection.prepareStatement(query)
@@ -103,8 +105,7 @@ object MovieService {
 
     fun deleteMovie(movieID: Int) {
         val query = """
-            DELETE
-            FROM movie
+            DELETE FROM movie
             WHERE movie_id = ?
         """.trimIndent()
 
@@ -114,9 +115,21 @@ object MovieService {
         ps.executeUpdate()
     }
 
-    fun updateRating(movieID: Int) {
+    //Updates the avg rating of the movie it changes
+    fun updateMovieRating(movieID: Int) {
         val query = """
-            
+            UPDATE movie
+            SET rating = 
+                (SELECT AVG(rating) as average
+                FROM rating
+                WHERE movie_id = 1)
+            WHERE movie_id = 1
         """.trimIndent()
+
+        val ps = connection.prepareStatement(query)
+        ps.setInt(1, movieID)
+        ps.setInt(2, movieID)
+
+        ps.executeUpdate()
     }
 }

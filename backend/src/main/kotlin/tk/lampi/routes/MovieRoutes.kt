@@ -12,20 +12,8 @@ import java.lang.NumberFormatException
 
 fun Route.movieRouting() {
     route("/movie") {
-        get("{movieID}") {
-            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.NotFound)
-            val movie: Movie
 
-            try {
-                movie = MovieService.getMovie(movieID.toInt()) ?: return@get call.respond(HttpStatusCode.NoContent)
-
-            } catch (e: Exception) {
-                return@get call.respond(HttpStatusCode.InternalServerError)
-            }
-
-            return@get call.respond(movie)
-        }
-
+        //Get all movies
         get {
             val movieList: ArrayList<Movie>
 
@@ -43,6 +31,22 @@ fun Route.movieRouting() {
 
         }
 
+        //Get a specific movie
+        get("{movieID}") {
+            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.NotFound)
+            val movie: Movie
+
+            try {
+                movie = MovieService.getMovie(movieID.toInt()) ?: return@get call.respond(HttpStatusCode.NoContent)
+
+            } catch (e: Exception) {
+                return@get call.respond(HttpStatusCode.InternalServerError)
+            }
+
+            return@get call.respond(movie)
+        }
+
+        //Add a movie
         post {
             val success: Boolean
 
@@ -64,6 +68,7 @@ fun Route.movieRouting() {
             }
         }
 
+        //Update a movie
         put("{movieID}") {
             val movieID = call.parameters["movieID"] ?: return@put call.respond(HttpStatusCode.NotFound)
             val success: Boolean
@@ -85,6 +90,7 @@ fun Route.movieRouting() {
             }
         }
 
+        //Delete a movie
         delete("{movieID}") {
             val movieID = call.parameters["movieID"] ?: return@delete call.respond(HttpStatusCode.NotFound)
 

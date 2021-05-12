@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Rating(
-    val ratingID: Int,
-    val movieID: Int,
-    val rating: Int,
-    val comment: String,
-    val username: String
+    val ratingID: Int = 0,
+    val movieID: Int = 0,
+    val rating: Double = 0.0,
+    val comment: String = "",
+    val username: String = ""
 )
