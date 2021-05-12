@@ -122,8 +122,8 @@ object MovieService {
             SET rating = 
                 (SELECT AVG(rating) as average
                 FROM rating
-                WHERE movie_id = 1)
-            WHERE movie_id = 1
+                WHERE movie_id = ?)
+            WHERE movie_id = ?
         """.trimIndent()
 
         val ps = connection.prepareStatement(query)

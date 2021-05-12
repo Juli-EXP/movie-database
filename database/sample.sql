@@ -1,8 +1,5 @@
 CREATE DATABASE IF NOT EXISTS `movie-database`;
 
-ALTER USER "root"@"%" IDENTIFIED WITH mysql_native_password BY "password";
-flush privileges;
-
 USE `movie-database`;
 
 CREATE TABLE IF NOT EXISTS `movie` (

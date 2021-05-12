@@ -16,7 +16,6 @@ object DatabaseConnection {
 
     @Throws(ClassNotFoundException::class, SQLException::class)
     fun getConnection(database: String = this.database): Connection {
-        Class.forName("com.mysql.jdbc.Driver")
         return DriverManager.getConnection(url + database + options, username, password)
     }
 }

@@ -42,7 +42,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")
 
-    implementation("mysql:mysql-connector-java:5.1.6")
+    implementation("mysql:mysql-connector-java:8.0.25")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
