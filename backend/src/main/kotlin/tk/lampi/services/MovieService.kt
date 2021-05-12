@@ -85,7 +85,6 @@ object MovieService {
         return ps.executeUpdate() != 0
     }
 
-
     fun updateMovie(movieID: Int, movie: Movie): Boolean {
         val query = """
             UPDATE movie
@@ -98,7 +97,7 @@ object MovieService {
         ps.setString(2, movie.description)
         ps.setString(3, movie.director)
         ps.setInt(4, movie.length)
-        ps.setInt(5,movie.releaseDate)
+        ps.setInt(5, movie.releaseDate)
         ps.setString(6, movie.genre)
         ps.setString(7, movie.ageRating)
 
@@ -136,4 +135,5 @@ object MovieService {
 
         ps.executeUpdate()
     }
+
 }

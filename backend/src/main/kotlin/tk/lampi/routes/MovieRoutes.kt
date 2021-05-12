@@ -33,7 +33,6 @@ fun Route.movieRouting() {
 
         //Get a specific movie
         get("{movieID}") {
-            return@get call.respondText("", status = HttpStatusCode.NoContent)
             val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.BadRequest)
             val movie: Movie
 
@@ -106,6 +105,11 @@ fun Route.movieRouting() {
             }
 
             return@delete call.respond(HttpStatusCode.OK)
+        }
+
+        //Get picture of a movie
+        get("{movieID}/image") {
+            TODO()
         }
     }
 }
