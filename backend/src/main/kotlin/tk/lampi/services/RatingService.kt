@@ -12,7 +12,7 @@ object RatingService {
     private fun resultToRating(rs: ResultSet): Rating {
         return Rating(
             rs.getInt("rating_id"),
-            rs.getInt("rating_id"),
+            rs.getInt("movie_id"),
             rs.getDouble("rating"),
             rs.getString("comment"),
             rs.getString("username")
@@ -116,5 +116,7 @@ object RatingService {
         ps.setInt(2, ratingID)
 
         ps.executeUpdate()
+
+        MovieService.updateMovieRating(movieID)
     }
 }

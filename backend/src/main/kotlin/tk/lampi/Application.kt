@@ -13,7 +13,7 @@ import tk.lampi.routes.configureRouting
 val PORT = System.getenv("PORT") ?: 4000
 
 fun main() {
-    embeddedServer(Netty, port = PORT as Int, host = "0.0.0.0") {
+    embeddedServer(Netty, watchPaths = listOf("classes", "main"), port = PORT as Int, host = "0.0.0.0") {
         install(Routing)
         install(CORS) {
             anyHost()
@@ -25,7 +25,7 @@ fun main() {
             })
         }
 
-
         configureRouting()
+
     }.start(wait = true)
 }

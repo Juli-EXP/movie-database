@@ -15,7 +15,7 @@ fun Route.ratingRouting() {
 
         //Get all ratings
         get("{movieID}") {
-            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.NotFound)
+            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.BadRequest)
             val ratingList: ArrayList<Rating>
 
             try {
@@ -26,7 +26,7 @@ fun Route.ratingRouting() {
             }
 
             return@get if (ratingList.isEmpty()) {
-                call.respond(HttpStatusCode.NoContent) {}
+                call.respond(HttpStatusCode.NoContent)
             } else {
                 call.respond(ratingList)
             }
@@ -34,8 +34,8 @@ fun Route.ratingRouting() {
 
         //Get a specific rating
         get("{movieID}/{ratingID}") {
-            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.NotFound)
-            val ratingID = call.parameters["ratingID"] ?: return@get call.respond(HttpStatusCode.NotFound)
+            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.BadRequest)
+            val ratingID = call.parameters["ratingID"] ?: return@get call.respond(HttpStatusCode.BadRequest)
             val rating: Rating
 
             try {
@@ -52,7 +52,7 @@ fun Route.ratingRouting() {
 
         //Add a rating
         post("{movieID}") {
-            val movieID = call.parameters["movieID"] ?: return@post call.respond(HttpStatusCode.NotFound)
+            val movieID = call.parameters["movieID"] ?: return@post call.respond(HttpStatusCode.BadRequest)
             val success: Boolean
 
             try {
@@ -75,8 +75,8 @@ fun Route.ratingRouting() {
 
         //Update a rating+
         put("{movieID}/{ratingID}") {
-            val movieID = call.parameters["movieID"] ?: return@put call.respond(HttpStatusCode.NotFound)
-            val ratingID = call.parameters["ratingID"] ?: return@put call.respond(HttpStatusCode.NotFound)
+            val movieID = call.parameters["movieID"] ?: return@put call.respond(HttpStatusCode.BadRequest)
+            val ratingID = call.parameters["ratingID"] ?: return@put call.respond(HttpStatusCode.BadRequest)
             val success: Boolean
 
             try {
@@ -99,8 +99,8 @@ fun Route.ratingRouting() {
 
         //Delete a rating
         delete("{movieID}/{ratingID}") {
-            val movieID = call.parameters["movieID"] ?: return@delete call.respond(HttpStatusCode.NotFound)
-            val ratingID = call.parameters["ratingID"] ?: return@delete call.respond(HttpStatusCode.NotFound)
+            val movieID = call.parameters["movieID"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
+            val ratingID = call.parameters["ratingID"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
 
             try {
                 RatingService.deleteRating(movieID.toInt(), ratingID.toInt())

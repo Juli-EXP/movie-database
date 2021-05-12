@@ -13,6 +13,7 @@ object MovieService {
         return Movie(
             rs.getInt("movie_id"),
             rs.getString("title"),
+            rs.getString("description"),
             rs.getString("director"),
             rs.getInt("length"),
             rs.getInt("release_date"),
@@ -68,17 +69,18 @@ object MovieService {
     fun addMovie(movie: Movie): Boolean {
         val query = """
             INSERT 
-            INTO movie(title, director, length, release_date, genre, age_rating)
-            VALUES(?, ?, ?, ?, ?, ?)
+            INTO movie(title, description, director, length, release_date, genre, age_rating)
+            VALUES(?, ?, ?, ?, ?, ?, ?)
         """.trimIndent()
 
         val ps = connection.prepareStatement(query)
         ps.setString(1, movie.title)
-        ps.setString(2, movie.director)
-        ps.setInt(3, movie.length)
-        ps.setInt(4, (System.currentTimeMillis() / 1000).toInt())
-        ps.setString(5, movie.genre)
-        ps.setString(6, movie.ageRating)
+        ps.setString(2, movie.description)
+        ps.setString(3, movie.director)
+        ps.setInt(4, movie.length)
+        ps.setInt(5, (System.currentTimeMillis() / 1000).toInt())
+        ps.setString(6, movie.genre)
+        ps.setString(7, movie.ageRating)
 
         return ps.executeUpdate() != 0
     }
@@ -87,18 +89,20 @@ object MovieService {
     fun updateMovie(movieID: Int, movie: Movie): Boolean {
         val query = """
             UPDATE movie
-            SET title = ?, director = ?, length = ?, release_date = ?, genre = ?, age_rating = ?
+            SET title = ?, description = ?, director = ?, length = ?, release_date = ?, genre = ?, age_rating = ?
             WHERE movie_id = ?                
         """.trimIndent()
 
         val ps = connection.prepareStatement(query)
         ps.setString(1, movie.title)
-        ps.setString(2, movie.director)
-        ps.setInt(3, movie.length)
-        ps.setInt(4, (System.currentTimeMillis() / 1000).toInt())
-        ps.setString(5, movie.genre)
-        ps.setString(6, movie.ageRating)
-        ps.setInt(7, movieID)
+        ps.setString(2, movie.description)
+        ps.setString(3, movie.director)
+        ps.setInt(4, movie.length)
+        ps.setInt(5,movie.releaseDate)
+        ps.setString(6, movie.genre)
+        ps.setString(7, movie.ageRating)
+
+        ps.setInt(8, movieID)
 
         return ps.executeUpdate() != 0
     }

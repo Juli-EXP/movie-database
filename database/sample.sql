@@ -5,6 +5,7 @@ USE `movie-database`;
 CREATE TABLE IF NOT EXISTS `movie` (
 	`movie_id` INT unsigned NOT NULL AUTO_INCREMENT,
 	`title` VARCHAR(100) NOT NULL,
+    `description` VARCHAR(1000),
 	`director` VARCHAR(50) NOT NULL,
 	`length` INT unsigned NOT NULL,
 	`release_date` INT unsigned NOT NULL,
