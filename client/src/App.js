@@ -1,20 +1,17 @@
+import {useState} from "react";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import MovieCardContainer from "./components/Movie/MovieCardContainer";
 import "./App.css";
-import MovieCardContainer from "./components/movie/MovieCardContainer";
+
 
 function App() {
     return (
         <Router>
             <Switch>
                 <Route path={"/"}>
-
-                </Route>
-                <Route path={"/movie"}>
-
+                    <MovieCardContainer/>
                 </Route>
                 <Route path={"/movie/:id"}>
-
-                </Route>
-                <Route path={"/movie/add"}>
 
                 </Route>
             </Switch>
