@@ -15,18 +15,22 @@ fun Route.ratingRouting() {
 
         //Get all ratings
         get("{movieID}") {
-            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.BadRequest)
+            val movieID =
+                call.parameters["movieID"] ?: return@get call.respondText("", status = HttpStatusCode.BadRequest)
             val ratingList: ArrayList<Rating>
 
             try {
                 ratingList =
-                    RatingService.getAllRaitings(movieID.toInt()) ?: return@get call.respond(HttpStatusCode.NoContent)
+                    RatingService.getAllRaitings(movieID.toInt()) ?: return@get call.respondText(
+                        "",
+                        status = HttpStatusCode.NoContent
+                    )
             } catch (e: Exception) {
-                return@get call.respond(HttpStatusCode.InternalServerError)
+                return@get call.respondText("", status = HttpStatusCode.InternalServerError)
             }
 
             return@get if (ratingList.isEmpty()) {
-                call.respond(HttpStatusCode.NoContent)
+                call.respondText("", status = HttpStatusCode.NoContent)
             } else {
                 call.respond(ratingList)
             }
@@ -34,8 +38,10 @@ fun Route.ratingRouting() {
 
         //Get a specific rating
         get("{movieID}/{ratingID}") {
-            val movieID = call.parameters["movieID"] ?: return@get call.respond(HttpStatusCode.BadRequest)
-            val ratingID = call.parameters["ratingID"] ?: return@get call.respond(HttpStatusCode.BadRequest)
+            val movieID =
+                call.parameters["movieID"] ?: return@get call.respondText("", status = HttpStatusCode.BadRequest)
+            val ratingID =
+                call.parameters["ratingID"] ?: return@get call.respondText("", status = HttpStatusCode.BadRequest)
             val rating: Rating
 
             try {
@@ -43,7 +49,7 @@ fun Route.ratingRouting() {
                     HttpStatusCode.NoContent
                 )
             } catch (e: Exception) {
-                return@get call.respond(HttpStatusCode.InternalServerError)
+                return@get call.respondText("", status = HttpStatusCode.InternalServerError)
             }
 
             return@get call.respond(rating)
@@ -52,7 +58,8 @@ fun Route.ratingRouting() {
 
         //Add a rating
         post("{movieID}") {
-            val movieID = call.parameters["movieID"] ?: return@post call.respond(HttpStatusCode.BadRequest)
+            val movieID =
+                call.parameters["movieID"] ?: return@post call.respondText("", status = HttpStatusCode.BadRequest)
             val success: Boolean
 
             try {
@@ -60,23 +67,25 @@ fun Route.ratingRouting() {
                 success = RatingService.addRating(movieID.toInt(), rating)
 
             } catch (e: ContentTransformationException) {
-                return@post call.respond(HttpStatusCode.BadRequest)
+                return@post call.respondText("", status = HttpStatusCode.BadRequest)
             } catch (e: Exception) {
                 e.printStackTrace()
-                return@post call.respond(HttpStatusCode.InternalServerError)
+                return@post call.respondText("", status = HttpStatusCode.InternalServerError)
             }
 
             return@post if (success) {
-                call.respond(HttpStatusCode.OK)
+                call.respondText("", status = HttpStatusCode.OK)
             } else {
-                call.respond(HttpStatusCode.BadRequest)
+                call.respondText("", status = HttpStatusCode.BadRequest)
             }
         }
 
         //Update a rating+
         put("{movieID}/{ratingID}") {
-            val movieID = call.parameters["movieID"] ?: return@put call.respond(HttpStatusCode.BadRequest)
-            val ratingID = call.parameters["ratingID"] ?: return@put call.respond(HttpStatusCode.BadRequest)
+            val movieID =
+                call.parameters["movieID"] ?: return@put call.respondText("", status = HttpStatusCode.BadRequest)
+            val ratingID =
+                call.parameters["ratingID"] ?: return@put call.respondText("", status = HttpStatusCode.BadRequest)
             val success: Boolean
 
             try {
@@ -84,34 +93,36 @@ fun Route.ratingRouting() {
                 success = RatingService.updateRating(movieID.toInt(), ratingID.toInt(), rating)
 
             } catch (e: ContentTransformationException) {
-                return@put call.respond(HttpStatusCode.BadRequest)
+                return@put call.respondText("", status = HttpStatusCode.BadRequest)
             } catch (e: Exception) {
                 e.printStackTrace()
-                return@put call.respond(HttpStatusCode.InternalServerError)
+                return@put call.respondText("", status = HttpStatusCode.InternalServerError)
             }
 
             return@put if (success) {
-                call.respond(HttpStatusCode.OK)
+                call.respondText("", status = HttpStatusCode.OK)
             } else {
-                call.respond(HttpStatusCode.BadRequest)
+                call.respondText("", status = HttpStatusCode.BadRequest)
             }
         }
 
         //Delete a rating
         delete("{movieID}/{ratingID}") {
-            val movieID = call.parameters["movieID"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
-            val ratingID = call.parameters["ratingID"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
+            val movieID =
+                call.parameters["movieID"] ?: return@delete call.respondText("", status = HttpStatusCode.BadRequest)
+            val ratingID =
+                call.parameters["ratingID"] ?: return@delete call.respondText("", status = HttpStatusCode.BadRequest)
 
             try {
                 RatingService.deleteRating(movieID.toInt(), ratingID.toInt())
 
             } catch (e: NumberFormatException) {
-                return@delete call.respond(HttpStatusCode.BadRequest)
+                return@delete call.respondText("", status = HttpStatusCode.BadRequest)
             } catch (e: Exception) {
-                return@delete call.respond(HttpStatusCode.InternalServerError)
+                return@delete call.respondText("", status = HttpStatusCode.InternalServerError)
             }
 
-            return@delete call.respond(HttpStatusCode.OK)
+            return@delete call.respondText("", status = HttpStatusCode.OK)
         }
     }
 }
