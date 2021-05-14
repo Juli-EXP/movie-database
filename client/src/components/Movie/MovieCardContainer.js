@@ -22,18 +22,13 @@ const MovieCardContainer = () => {
     }, [update]);
 
     return (
-        <div className="movieCardContainer">
-
-
-
-            <div>
-                {data.map((element, index) => (
-                    <MovieCard
-                        movie={element}
-                        index={index}
-                    />
-                ))}
-            </div>
+        <div className="flex flex-wrap space-x-4">
+            {data.map((element, index) => (
+                <MovieCard className
+                           movie={element}
+                           index={index}
+                />
+            ))}
         </div>
     );
 };

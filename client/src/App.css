@@ -5,16 +5,10 @@
 
 * {
     font-family: "Montserrat", sans-serif;
+    color: white;
+    word-break: break-all;
 }
 
 body {
     background-color: #161616;
-}
-
-:root {
-    --main-color: #111;
-    --loader-color: #140b44;
-    --back-color: #a5d6a7;
-    --time: 3s;
-    --size: 3px;
 }

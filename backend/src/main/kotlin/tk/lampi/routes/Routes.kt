@@ -12,6 +12,7 @@ fun Application.configureRouting() {
             get{
                 call.respond("Hello World")
             }
+            movieImageRouting()
             movieRouting()
             ratingRouting()
         }

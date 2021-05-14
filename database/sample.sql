@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `movie` (
 	`genre` VARCHAR(50) NOT NULL,
 	`age_rating` VARCHAR(5) NOT NULL,
 	`rating` DOUBLE DEFAULT '0.0',
+    `image` VARCHAR(50),
 	PRIMARY KEY (`movie_id`)
 );
 
