@@ -4,6 +4,7 @@ import tk.lampi.models.Rating
 import tk.lampi.util.DatabaseConnection
 import java.sql.ResultSet
 
+
 object RatingService {
     private val connection = DatabaseConnection.getConnection()
 
@@ -14,8 +15,8 @@ object RatingService {
             rs.getInt("rating_id"),
             rs.getInt("movie_id"),
             rs.getDouble("rating"),
-            rs.getString("comment"),
-            rs.getString("username")
+            rs.getString("comment") ?: "",
+            rs.getString("username") ?: ""
         )
     }
 

@@ -23,14 +23,14 @@ fun Route.ratingRouting() {
                 ratingList =
                     RatingService.getAllRaitings(movieID.toInt()) ?: return@get call.respondText(
                         "",
-                        status = HttpStatusCode.NoContent
+                        status = HttpStatusCode.NotFound
                     )
             } catch (e: Exception) {
                 return@get call.respondText("", status = HttpStatusCode.InternalServerError)
             }
 
             return@get if (ratingList.isEmpty()) {
-                call.respondText("", status = HttpStatusCode.NoContent)
+                call.respondText("", status = HttpStatusCode.NotFound)
             } else {
                 call.respond(ratingList)
             }
@@ -46,7 +46,7 @@ fun Route.ratingRouting() {
 
             try {
                 rating = RatingService.getRating(movieID.toInt(), ratingID.toInt()) ?: return@get call.respond(
-                    HttpStatusCode.NoContent
+                    HttpStatusCode.NotFound
                 )
             } catch (e: Exception) {
                 return@get call.respondText("", status = HttpStatusCode.InternalServerError)

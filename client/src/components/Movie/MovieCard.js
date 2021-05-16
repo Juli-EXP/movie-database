@@ -1,14 +1,15 @@
-import React from "react";
+import {API_URL} from "../../Constants";
 import RatingStar from "../Icons/RatingStar";
+
 
 const MovieCard = (props) => {
     return (
         <div className="
-        bg-primary
-        mt-4 w-40
+        bg-foreground
+        w-40
         flex flex-col">
             <img
-                src={props.movie.poster}
+                src={`${API_URL}/movie/${props.movie.id}/image`}
                 alt={`poster`}
             />
 

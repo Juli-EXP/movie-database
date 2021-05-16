@@ -4,6 +4,7 @@ import tk.lampi.models.Movie
 import tk.lampi.util.DatabaseConnection
 import java.sql.ResultSet
 
+
 object MovieService {
     private val connection = DatabaseConnection.getConnection()
 
@@ -13,13 +14,14 @@ object MovieService {
         return Movie(
             rs.getInt("movie_id"),
             rs.getString("title"),
-            rs.getString("description"),
+            rs.getString("description") ?: "",
             rs.getString("director"),
             rs.getInt("length"),
             rs.getInt("release_date"),
             rs.getString("genre"),
             rs.getString("age_rating"),
-            rs.getDouble("rating")
+            rs.getDouble("rating"),
+            rs.getString("image") ?: ""
         )
     }
 

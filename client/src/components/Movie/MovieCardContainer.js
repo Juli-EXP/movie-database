@@ -1,6 +1,6 @@
+import {API_URL} from "../../Constants";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {API_URL} from "../../Constants";
 import MovieCard from "./MovieCard";
 
 const MovieCardContainer = () => {
@@ -22,13 +22,16 @@ const MovieCardContainer = () => {
     }, [update]);
 
     return (
-        <div className="flex flex-wrap space-x-4">
-            {data.map((element, index) => (
-                <MovieCard className
-                           movie={element}
-                           index={index}
-                />
-            ))}
+        <div>
+
+            <div className="flex flex-wrap space-x-4 space-y-3 m-4">
+                {data.map((element, index) => (
+                    <MovieCard className
+                               movie={element}
+                               index={index}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

@@ -19,13 +19,14 @@ fun Route.movieRouting() {
 
             try {
                 movieList =
-                    MovieService.getAllMovies() ?: return@get call.respondText("", status = HttpStatusCode.NoContent)
+                    MovieService.getAllMovies() ?: return@get call.respondText("", status = HttpStatusCode.NotFound)
             } catch (e: Exception) {
+                e.printStackTrace()
                 return@get call.respondText("", status = HttpStatusCode.InternalServerError)
             }
 
             return@get if (movieList.isEmpty()) {
-                call.respondText("", status = HttpStatusCode.NoContent)
+                call.respondText("", status = HttpStatusCode.NotFound)
             } else {
                 call.respond(movieList)
             }
@@ -41,7 +42,7 @@ fun Route.movieRouting() {
             try {
                 movie = MovieService.getMovie(movieID.toInt()) ?: return@get call.respondText(
                     "",
-                    status = HttpStatusCode.NoContent
+                    status = HttpStatusCode.NotFound
                 )
 
             } catch (e: Exception) {
