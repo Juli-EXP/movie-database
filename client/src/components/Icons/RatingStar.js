@@ -3,9 +3,11 @@ import {AiFillStar} from "react-icons/ai";
 
 const RatingStar = () => {
     return (
-        <IconContext.Provider value={{color: "#ffff00"}}>
-            <AiFillStar/>
-        </IconContext.Provider>
+        <div className="mr-0.5 mt-0.5">
+            <IconContext.Provider value={{color: "#ffff00"}}>
+                <AiFillStar/>
+            </IconContext.Provider>
+        </div>
     );
 };
 

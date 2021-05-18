@@ -8,12 +8,18 @@
     --foreground: #2f2f2f;
 }
 
-* {
-    font-family: "Montserrat", sans-serif;
-    color: white;
-    word-break: break-all;
+@layer base {
+    * {
+        font-family: "Montserrat", sans-serif;
+    }
+
+    body {
+        background-color: var(--background);
+    }
+
+    p {
+        color: white;
+    }
 }
 
-body {
-    background-color: var(--background);
-}
+

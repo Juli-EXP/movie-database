@@ -4,31 +4,29 @@ import axios from "axios";
 import MovieCard from "./MovieCard";
 
 const MovieCardContainer = () => {
-    const [data, setData] = useState([]);
-    const [update, setUpdate] = useState(false);
+    const [update] = useState(false);
+    const [movies, setMovies] = useState([]);
 
 
     useEffect(() => {
         //Get a list of all movies
         axios.get(`${API_URL}/movie`)
             .then((res) => {
-                setData(res.data);
-                console.log(res.data);
+                setMovies(res.data);
             })
             .catch((err) => {
                 console.log(err);
             });
-
     }, [update]);
 
     return (
         <div>
-
-            <div className="flex flex-wrap space-x-4 space-y-3 m-4">
-                {data.map((element, index) => (
-                    <MovieCard className
-                               movie={element}
-                               index={index}
+            <h1 className={"text-white text-2xl font-medium mx-4 mb-4"}>Movies</h1>
+            <div className={"m-4 flex flex-wrap"}>
+                {movies.map((element) => (
+                    <MovieCard
+                        movie={element}
+                        key={element.id}
                     />
                 ))}
             </div>

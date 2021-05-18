@@ -9,7 +9,7 @@ object DatabaseConnection {
     private val host = System.getenv("DB_HOST") ?: "localhost"
     private val username = System.getenv("DB_USERNAME") ?: "root"
     private val password = System.getenv("DB_PASSWORD") ?: "password"
-    private val database = System.getenv("DB_DATABASE") ?: "movie-database"
+    private val database = System.getenv("DB_DATABASE") ?: "movie_database"
     private val url = "jdbc:mysql://$host:3306/"
     private const val options = "?characterEncoding=utf8"
 
