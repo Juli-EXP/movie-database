@@ -26,8 +26,8 @@ const MoviePage = () => {
         <div className={"flex flex-col"}>
             <span className={"text-white m-1 flex flex-row"}>
                 <h1>{movie.title}</h1>
-                <RatingStar/>
-                {movie.rating}
+                <RatingStar className={"m-0.5"}/>
+                <p>{Number((movie.rating || 0.0).toFixed(1))}</p>
             </span>
 
             <img className={"text-white animate-fade-in"}
@@ -38,7 +38,7 @@ const MoviePage = () => {
             <p>{movie.description}</p>
             <p>{movie.director}</p>
             <p>{movie.length}</p>
-            <p>{movie.releaseDate}</p>
+            <p>{new Date(movie.releaseDate).toLocaleDateString()}</p>
             <p>{movie.ageRating}</p>
         </div>
 

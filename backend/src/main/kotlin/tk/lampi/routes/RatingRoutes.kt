@@ -80,7 +80,7 @@ fun Route.ratingRouting() {
             }
         }
 
-        //Update a rating+
+        //Update a rating
         put("{movieID}/{ratingID}") {
             val movieID =
                 call.parameters["movieID"] ?: return@put call.respondText("", status = HttpStatusCode.BadRequest)

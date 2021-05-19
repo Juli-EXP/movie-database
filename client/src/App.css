@@ -5,7 +5,9 @@
 
 :root {
     --background: #161616;
-    --foreground: #2f2f2f;
+    --primary: #2f2f2f;
+    --secondary: #404040;
+    --accent-primary: #81c784;
 }
 
 @layer base {

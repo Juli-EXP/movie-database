@@ -3,23 +3,23 @@ import RatingStar from "../Icons/RatingStar";
 import {Link} from "react-router-dom";
 
 
-const MovieCard = (props) => {
+const MovieCard = ({key, movie}) => {
     return (
         <Link
-            to={`movie/${props.movie.id}`}
-            className={"bg-foreground m-2 w-40 flex flex-col animate-fade-in-down"}
+            to={`movie/${movie.id}`}
+            className={"bg-primary m-2 w-40 hover:bg-secondary flex flex-col animate-fade-in-down"}
         >
             <img className={"text-white animate-fade-in"}
-                 src={`${API_URL}/movie/${props.movie.id}/image`}
+                 src={`${API_URL}/movie/${movie.id}/image`}
                  alt={"poster"}
             />
 
             <span className={"text-white m-1 flex flex-row"}>
-                <RatingStar/>
-                {props.movie.rating}
+                <RatingStar className={"m-0.5"}/>
+                <p>{Number((movie.rating || 0.0).toFixed(1))}</p>
             </span>
 
-            <p className={"mx-1"}>{props.movie.title}</p>
+            <p className={"mx-1"}>{movie.title}</p>
         </Link>
     );
 };

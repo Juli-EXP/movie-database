@@ -21,8 +21,7 @@ const MovieCardContainer = () => {
 
     return (
         <div>
-            <h1 className={"text-white text-2xl font-medium mx-4 mb-4"}>Movies</h1>
-            <div className={"m-4 flex flex-wrap"}>
+            <div className={"flex flex-wrap"}>
                 {movies.map((element) => (
                     <MovieCard
                         movie={element}
