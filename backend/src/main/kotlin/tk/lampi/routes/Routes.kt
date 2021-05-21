@@ -9,9 +9,6 @@ fun Application.configureRouting() {
     // Starting point for a Ktor app:
     routing {
         route("/api") {
-            get{
-                call.respond("Hello World")
-            }
             movieImageRouting()
             movieRouting()
             ratingRouting()

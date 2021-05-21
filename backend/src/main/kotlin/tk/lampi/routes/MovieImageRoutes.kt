@@ -2,10 +2,14 @@ package tk.lampi.routes
 
 import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.http.content.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import tk.lampi.services.MovieImageService
+import tk.lampi.services.MovieService
 import java.io.File
+import java.lang.NumberFormatException
 
 
 fun Route.movieImageRouting() {
@@ -33,19 +37,51 @@ fun Route.movieImageRouting() {
         post("{movieID}/image") {
             val movieID =
                 call.parameters["movieID"] ?: return@post call.respondText("", status = HttpStatusCode.BadRequest)
+            val success: Boolean
 
+            try {
+                val imageParts = call.receiveMultipart()
+                success = MovieImageService.addImage(movieID.toInt(), imageParts)
+
+            } catch (e: Exception) {
+                return@post call.respondText("", status = HttpStatusCode.InternalServerError)
+            }
+
+            return@post if (success) {
+                call.respondText("", status = HttpStatusCode.OK)
+            } else {
+                call.respondText("", status = HttpStatusCode.BadRequest)
+            }
         }
 
         //Update the image from a movie
         put("{movieID}/image") {
             val movieID =
                 call.parameters["movieID"] ?: return@put call.respondText("", status = HttpStatusCode.BadRequest)
+
+            return@put call.respondText("", status = HttpStatusCode.NotImplemented)
         }
 
         //Delete the image from a movie
         delete("{movieID}/image") {
             val movieID =
                 call.parameters["movieID"] ?: return@delete call.respondText("", status = HttpStatusCode.BadRequest)
+            val success: Boolean
+
+            try {
+                success = MovieImageService.deleteImage(movieID.toInt())
+
+            } catch (e: NumberFormatException) {
+                return@delete call.respondText("", status = HttpStatusCode.BadRequest)
+            } catch (e: Exception) {
+                return@delete call.respondText("", status = HttpStatusCode.InternalServerError)
+            }
+
+            return@delete if (success) {
+                call.respondText("", status = HttpStatusCode.OK)
+            } else {
+                call.respondText("", status = HttpStatusCode.BadRequest)
+            }
         }
 
     }

@@ -1,5 +1,6 @@
 package tk.lampi.services
 
+import io.ktor.http.content.*
 import io.ktor.utils.io.errors.*
 import tk.lampi.util.DatabaseConnection
 import java.io.File
@@ -13,13 +14,14 @@ object MovieImageService {
     private val connection = DatabaseConnection.getConnection()
 
     init {
+        //Creates directory if it doesn't exist
         Files.createDirectories(Paths.get(imagePath))
     }
 
 
-    fun createFileName(movieID: Int): String? {
+    private fun createFileName(movieID: Int): String? {
         val query = """
-            SELECT name
+            SELECT title
             FROM movie
             WHERE movie_id = ?
         """.trimIndent()
@@ -32,8 +34,28 @@ object MovieImageService {
             return null
         }
 
-        return rs.getString("name").replace(" ", "_") + System.currentTimeMillis() / 1000
+        return rs.getString("title").replace(" ", "_") +
+                "_" + System.currentTimeMillis() / 1000 + ".jpg"
     }
+
+    private fun getFileName(movieID: Int): String? {
+        val query = """
+            SELECT image
+            FROM movie
+            WHERE movie_id = ?
+        """.trimIndent()
+
+        val ps = connection.prepareStatement(query)
+        ps.setInt(1, movieID)
+
+        val rs = ps.executeQuery()
+        if (!rs.next()) {
+            return null
+        }
+
+        return rs.getString("image")
+    }
+
 
     fun getImage(movieID: Int): File? {
         val query = """
@@ -59,17 +81,27 @@ object MovieImageService {
         }
     }
 
-    //TODO error handling
-    fun addImage(movieID: Int, image: ByteArray): Boolean? {
-        val imageName: String = createFileName(movieID) ?: return false
+    suspend fun addImage(movieID: Int, imageParts: MultiPartData): Boolean {
+        val imageName: String = createFileName(movieID) ?: return false //"$imagePath/$imageName"
+        println("Ok")
 
-        val fos = FileOutputStream("$imagePath/$imageName")
         try {
-            fos.write(image)
+            imageParts.forEachPart { part ->
+
+                if (part is PartData.FileItem) {
+                    val image = File("$imagePath/$imageName")
+                    part.streamProvider().use { block ->
+                        image.outputStream().buffered().use {
+                            block.copyTo(it)
+                        }
+                    }
+                } else {
+                    part.dispose()
+                    throw IOException("Error while reading file")
+                }
+            }
         } catch (e: IOException) {
-            return null
-        } finally {
-            fos.close()
+            return false
         }
 
         val query = """
@@ -85,12 +117,21 @@ object MovieImageService {
         return ps.executeUpdate() != 0
     }
 
-    fun updateImage(movieID: Int, image: File): Boolean {
-        TODO()
+    fun updateImage(movieID: Int, imageParts: MultiPartData): Boolean {
+        TODO("")
     }
 
-    fun deleteImage(movieID: Int) {
-        TODO()
+    fun deleteImage(movieID: Int): Boolean {
+        val query = """
+            UPDATE movie
+            SET image = NULL
+            WHERE movie_id = ?
+        """.trimIndent()
+
+        val ps = connection.prepareStatement(query)
+        ps.setInt(1, movieID)
+
+        return ps.executeUpdate() != 0
     }
 
 }
