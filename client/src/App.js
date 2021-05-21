@@ -9,9 +9,11 @@ import "./App.css";
 import MoviePage from "./components/Movie/MoviePage";
 import NotFound from "./components/Error/NotFound";
 import Navbar from "./components/Navbar/Navbar";
+import {API_URL} from "./Constants";
 
 
 function App() {
+    console.log(API_URL)
     return (
         <Router>
             <Navbar/>
