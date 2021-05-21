@@ -26,6 +26,9 @@ services:
       DB_PORT: 3306
       DB_USERNAME: root
       DB_PASSWORD: password
+      IMAGE_PATH: /images
+    volumes:
+      - ./images:/images
     ports:
       - "4000:4000"
     restart: unless-stopped
