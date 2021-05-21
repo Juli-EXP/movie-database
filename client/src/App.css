@@ -10,6 +10,20 @@
     --accent-primary: #81c784;
 }
 
+*::-webkit-scrollbar {
+    width: 12px;
+    background-color: var(--background);
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--primary);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--secondary);
+}
+
 @layer base {
     * {
         font-family: "Montserrat", sans-serif;

@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:17-jdk-alpine
 
 #Run gradle clean build first
 COPY ./build/libs/movie-database-backend-0.0.1-all.jar /backend.jar

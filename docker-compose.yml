@@ -1,7 +1,20 @@
 version: "3.8"
 
 services:
-  #client
+  client:
+    build: ./client
+    image: movie-database-client
+    container_name: movie-database-client
+    networks:
+      - movie-database-network
+    depends_on:
+      - db
+    environment:
+      API_URL: backend
+      API_PORT: 4000
+    ports:
+      - "80:80"
+    restart: unless-stopped
 
   backend:
     build: ./backend
@@ -12,6 +25,7 @@ services:
     depends_on:
       - db
     environment:
+      PORT: 4000
       DB_HOST: db
       DB_PORT: 3306
       DB_USERNAME: root

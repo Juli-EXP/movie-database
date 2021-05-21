@@ -29,24 +29,17 @@ module.exports = {
                         transform: "translateY(0)"
                     },
                 },
-                "on-hover": {
-                    "0%": {
-                        transform: "translateX(0) translateY(0)"
-                    },
-                    "100%": {
-                        transform: "translateX(10) translateY(10)"
-                    },
-                },
             },
             animation: {
                 "fade-in": "fade-in 0.5s ease-out",
                 "fade-in-down": "fade-in-down 1s ease-out",
-                "on-hover": "on-hover 3s ease-out",
             },
         },
     },
     variants: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require("@tailwindcss/line-clamp"),
+    ],
 };
