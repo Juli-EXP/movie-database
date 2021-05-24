@@ -1,11 +1,11 @@
-package tk.lampi.services
+package tk.lampi.controllers
 
 import tk.lampi.models.Rating
 import tk.lampi.util.DatabaseConnection
 import java.sql.ResultSet
 
 
-object RatingService {
+object RatingController {
     private val connection = DatabaseConnection.getConnection()
 
 
@@ -81,7 +81,7 @@ object RatingService {
 
         val result = ps.executeUpdate() != 0
 
-        MovieService.updateMovieRating(movieID)
+        MovieController.updateMovieRating(movieID)
 
         return result
     }
@@ -101,7 +101,7 @@ object RatingService {
 
         val result = ps.executeUpdate() != 0
 
-        MovieService.updateMovieRating(movieID)
+        MovieController.updateMovieRating(movieID)
 
         return result
     }
@@ -118,6 +118,6 @@ object RatingService {
 
         ps.executeUpdate()
 
-        MovieService.updateMovieRating(movieID)
+        MovieController.updateMovieRating(movieID)
     }
 }

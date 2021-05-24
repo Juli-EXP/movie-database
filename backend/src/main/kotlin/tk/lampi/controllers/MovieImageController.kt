@@ -1,15 +1,14 @@
-package tk.lampi.services
+package tk.lampi.controllers
 
 import io.ktor.http.content.*
 import io.ktor.utils.io.errors.*
 import tk.lampi.util.DatabaseConnection
 import java.io.File
-import java.io.FileOutputStream
 import java.nio.file.Files
 import java.nio.file.Paths
 
 
-object MovieImageService {
+object MovieImageController {
     private val imagePath = System.getenv("IMAGE_PATH") ?: "./images"
     private val connection = DatabaseConnection.getConnection()
 

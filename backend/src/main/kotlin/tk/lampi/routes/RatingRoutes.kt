@@ -6,7 +6,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import tk.lampi.models.Rating
-import tk.lampi.services.RatingService
+import tk.lampi.controllers.RatingController
 import java.lang.NumberFormatException
 
 
@@ -21,7 +21,7 @@ fun Route.ratingRouting() {
 
             try {
                 ratingList =
-                    RatingService.getAllRaitings(movieID.toInt()) ?: return@get call.respondText(
+                    RatingController.getAllRaitings(movieID.toInt()) ?: return@get call.respondText(
                         "",
                         status = HttpStatusCode.NotFound
                     )
@@ -45,7 +45,7 @@ fun Route.ratingRouting() {
             val rating: Rating
 
             try {
-                rating = RatingService.getRating(movieID.toInt(), ratingID.toInt()) ?: return@get call.respond(
+                rating = RatingController.getRating(movieID.toInt(), ratingID.toInt()) ?: return@get call.respond(
                     HttpStatusCode.NotFound
                 )
             } catch (e: Exception) {
@@ -64,7 +64,7 @@ fun Route.ratingRouting() {
 
             try {
                 val rating = call.receive<Rating>()
-                success = RatingService.addRating(movieID.toInt(), rating)
+                success = RatingController.addRating(movieID.toInt(), rating)
 
             } catch (e: ContentTransformationException) {
                 return@post call.respondText("", status = HttpStatusCode.BadRequest)
@@ -90,7 +90,7 @@ fun Route.ratingRouting() {
 
             try {
                 val rating = call.receive<Rating>()
-                success = RatingService.updateRating(movieID.toInt(), ratingID.toInt(), rating)
+                success = RatingController.updateRating(movieID.toInt(), ratingID.toInt(), rating)
 
             } catch (e: ContentTransformationException) {
                 return@put call.respondText("", status = HttpStatusCode.BadRequest)
@@ -114,7 +114,7 @@ fun Route.ratingRouting() {
                 call.parameters["ratingID"] ?: return@delete call.respondText("", status = HttpStatusCode.BadRequest)
 
             try {
-                RatingService.deleteRating(movieID.toInt(), ratingID.toInt())
+                RatingController.deleteRating(movieID.toInt(), ratingID.toInt())
 
             } catch (e: NumberFormatException) {
                 return@delete call.respondText("", status = HttpStatusCode.BadRequest)

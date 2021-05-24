@@ -1,11 +1,11 @@
-package tk.lampi.services
+package tk.lampi.controllers
 
 import tk.lampi.models.Movie
 import tk.lampi.util.DatabaseConnection
 import java.sql.ResultSet
 
 
-object MovieService {
+object MovieController {
     private val connection = DatabaseConnection.getConnection()
 
 

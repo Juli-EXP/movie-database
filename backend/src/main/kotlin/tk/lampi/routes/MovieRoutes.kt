@@ -6,7 +6,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import tk.lampi.models.Movie
-import tk.lampi.services.MovieService
+import tk.lampi.controllers.MovieController
 import java.lang.NumberFormatException
 
 
@@ -19,7 +19,7 @@ fun Route.movieRouting() {
 
             try {
                 movieList =
-                    MovieService.getAllMovies() ?: return@get call.respondText("", status = HttpStatusCode.NotFound)
+                    MovieController.getAllMovies() ?: return@get call.respondText("", status = HttpStatusCode.NotFound)
             } catch (e: Exception) {
                 e.printStackTrace()
                 return@get call.respondText("", status = HttpStatusCode.InternalServerError)
@@ -40,7 +40,7 @@ fun Route.movieRouting() {
             val movie: Movie
 
             try {
-                movie = MovieService.getMovie(movieID.toInt()) ?: return@get call.respondText(
+                movie = MovieController.getMovie(movieID.toInt()) ?: return@get call.respondText(
                     "",
                     status = HttpStatusCode.NotFound
                 )
@@ -58,7 +58,7 @@ fun Route.movieRouting() {
 
             try {
                 val movie = call.receive<Movie>()
-                success = MovieService.addMovie(movie)
+                success = MovieController.addMovie(movie)
 
             } catch (e: ContentTransformationException) {
                 return@post call.respondText("", status = HttpStatusCode.BadRequest)
@@ -82,7 +82,7 @@ fun Route.movieRouting() {
 
             try {
                 val movie = call.receive<Movie>()
-                success = MovieService.updateMovie(movieID.toInt(), movie)
+                success = MovieController.updateMovie(movieID.toInt(), movie)
 
             } catch (e: ContentTransformationException) {
                 return@put call.respondText("", status = HttpStatusCode.BadRequest)
@@ -103,7 +103,7 @@ fun Route.movieRouting() {
                 call.parameters["movieID"] ?: return@delete call.respondText("", status = HttpStatusCode.BadRequest)
 
             try {
-                MovieService.deleteMovie(movieID.toInt())
+                MovieController.deleteMovie(movieID.toInt())
 
             } catch (e: NumberFormatException) {
                 return@delete call.respondText("", status = HttpStatusCode.BadRequest)

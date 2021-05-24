@@ -2,12 +2,10 @@ package tk.lampi.routes
 
 import io.ktor.application.*
 import io.ktor.http.*
-import io.ktor.http.content.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import tk.lampi.services.MovieImageService
-import tk.lampi.services.MovieService
+import tk.lampi.controllers.MovieImageController
 import java.io.File
 import java.lang.NumberFormatException
 
@@ -22,7 +20,7 @@ fun Route.movieImageRouting() {
             val image: File
 
             try {
-                image = MovieImageService.getImage(movieID.toInt()) ?: return@get call.respondText(
+                image = MovieImageController.getImage(movieID.toInt()) ?: return@get call.respondText(
                     "",
                     status = HttpStatusCode.NotFound
                 )
@@ -41,7 +39,7 @@ fun Route.movieImageRouting() {
 
             try {
                 val imageParts = call.receiveMultipart()
-                success = MovieImageService.addImage(movieID.toInt(), imageParts)
+                success = MovieImageController.addImage(movieID.toInt(), imageParts)
 
             } catch (e: Exception) {
                 return@post call.respondText("", status = HttpStatusCode.InternalServerError)
@@ -69,7 +67,7 @@ fun Route.movieImageRouting() {
             val success: Boolean
 
             try {
-                success = MovieImageService.deleteImage(movieID.toInt())
+                success = MovieImageController.deleteImage(movieID.toInt())
 
             } catch (e: NumberFormatException) {
                 return@delete call.respondText("", status = HttpStatusCode.BadRequest)
