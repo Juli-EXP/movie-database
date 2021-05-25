@@ -18,13 +18,11 @@ const MovieCardContainer = () => {
             .catch((err) => {
                 console.log(err);
             });
-
-        //TODO change navbar content
     }, [update]);
 
     return (
         <div>
-            <Navbar buttonName={"Add movie"} path={""}/>
+            <Navbar buttonName={"Add movie"} path={"/movie/add"}/>
             <div className={"mt-2 flex flex-wrap"}>
                 {movies.map((element) => (
                     <MovieCard

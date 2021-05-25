@@ -2,7 +2,7 @@ import React from "react";
 import {AiFillHome} from "react-icons/ai";
 import {IconContext} from "react-icons";
 
-const HomeButton = ({className, size}) => {
+const Home = ({className, size}) => {
     return (
         <div className={`${className}`}>
             <IconContext.Provider value={{
@@ -15,4 +15,4 @@ const HomeButton = ({className, size}) => {
     );
 };
 
-export default HomeButton;
+export default Home;

@@ -6,6 +6,8 @@ import {
 import MovieCardContainer from "./components/Movie/MovieCardContainer";
 import "./App.css";
 import MoviePage from "./components/Movie/MoviePage";
+import AddMovie from "./components/Movie/AddMovie";
+import AddRating from "./components/Rating/AddRating";
 import NotFound from "./components/Error/NotFound";
 
 
@@ -13,8 +15,14 @@ function App() {
     return (
         <Router>
             <Switch>
+                <Route exact path={"/movie/add"}>
+                    <AddMovie/>
+                </Route>
                 <Route exact path={"/movie/:id"}>
                     <MoviePage/>
+                </Route>
+                <Route exact path={"/movie/:id/rating/add"}>
+                    <AddRating/>
                 </Route>
                 <Route exact path={["/movie", "/"]}>
                     <MovieCardContainer/>

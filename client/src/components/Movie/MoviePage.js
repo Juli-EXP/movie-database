@@ -4,6 +4,7 @@ import axios from "axios";
 import {API_URL} from "../../Constants";
 import RatingStar from "../Icons/RatingStar";
 import Navbar from "../Navbar/Navbar";
+import RatingCardContainer from "../Rating/RatingCardContainer";
 
 
 const MoviePage = () => {
@@ -25,24 +26,48 @@ const MoviePage = () => {
 
     return (
         <div>
-            <Navbar buttonName={"Add rating"} path={""}/>
-            <div className={"flex flex-col"}>
-            <span className={"text-white m-1 flex flex-row"}>
-                <h1>{movie.title}</h1>
-                <RatingStar className={"m-0.5"}/>
-                <p>{Number((movie.rating || 0.0).toFixed(1))}</p>
-            </span>
+            <Navbar buttonName={"Add rating"} path={`/movie/${id}/rating/add`}/>
+            <div className={"flex flex-col ml-2"}>
+                <span className={"text-white text-2xl flex flex-row"}>
+                    <h1 className={"mr-2"}>{movie.title}</h1>
+                    <RatingStar className={"m-0.5 "}/>
+                    <p>{Number((movie.rating || 0.0).toFixed(1))}</p>
+                </span>
 
-                <img className={"text-white animate-fade-in"}
-                     src={`${API_URL}/movie/${id}/image`}
-                     alt={"poster"}
-                />
+                <div className={"flex flex-row flex-wrap space-y-4"}>
+                    <img className={"text-white w-96 mr-4 animate-fade-in"}
+                         src={`${API_URL}/movie/${id}/image`}
+                         alt={"poster"}
+                    />
 
-                <p>{movie.description}</p>
-                <p>{movie.director}</p>
-                <p>{movie.length}</p>
-                <p>{new Date(movie.releaseDate).toLocaleDateString()}</p>
-                <p>{movie.ageRating}</p>
+                    <div className={"mr-4"}>
+                        <div className={"movie-info"}>
+                            <p className={"font-bold"}>Description:</p>
+                            <p>{movie.description}</p>
+                        </div>
+                        <div className={"movie-info"}>
+                            <p className={"font-bold"}>Director:</p>
+                            <p>{movie.director}</p>
+                        </div>
+                        <div className={"movie-info"}>
+                            <p className={"font-bold"}>Length:</p>
+                            <p>{movie.length}</p>
+                            <p>min.</p>
+                        </div>
+                        <div className={"movie-info"}>
+                            <p className={"font-bold"}>Release date:</p>
+                            <p>{new Date(movie.releaseDate).toLocaleDateString()}</p>
+                        </div>
+                        <div className={"movie-info"}>
+                            <p className={"font-bold"}>Age rating:</p>
+                            <p>{movie.ageRating}</p>
+                        </div>
+                    </div>
+
+                    <RatingCardContainer movieID={id}/>
+                </div>
+
+
             </div>
         </div>
     );

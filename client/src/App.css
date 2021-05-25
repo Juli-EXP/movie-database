@@ -24,6 +24,10 @@
     background-color: var(--secondary);
 }
 
+.movie-info {
+    @apply flex space-x-1
+}
+
 @layer base {
     * {
         font-family: "Montserrat", sans-serif;
@@ -34,6 +38,12 @@
     }
 
     p {
+        color: white;
+    }
+
+    input, textarea {
+        border-radius: 5px;
+        background-color: var(--primary);
         color: white;
     }
 }

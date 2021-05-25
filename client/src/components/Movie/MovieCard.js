@@ -3,7 +3,7 @@ import RatingStar from "../Icons/RatingStar";
 import {Link} from "react-router-dom";
 
 
-const MovieCard = ({key, movie}) => {
+const MovieCard = ({movie}) => {
     return (
         <Link
             to={`movie/${movie.id}`}
