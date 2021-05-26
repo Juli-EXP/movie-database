@@ -71,7 +71,7 @@ const MoviePage = () => {
                              alt={"poster"}
                         />
                     ) : (
-                        <span className={"flex flex-col space-y-1"}>
+                        <span className={"mr-4 flex flex-col space-y-1"}>
                             <p>Upload a movie poster:</p>
                             <label className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max cursor-pointer"}>
                                 {imageName}
