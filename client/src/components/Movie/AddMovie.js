@@ -36,10 +36,6 @@ const AddMovie = () => {
         });
     };
 
-    const uploadImage = () => {
-
-    };
-
     return (
         <div>
             <Navbar/>
@@ -50,6 +46,7 @@ const AddMovie = () => {
                         <input
                             className={"w-96 h-8"}
                             required={"reqired"}
+                            type={"text"}
                             onChange={e => setTitle(e.target.value)}
                         />
                     </span>
@@ -59,6 +56,7 @@ const AddMovie = () => {
                         <textarea
                             className={"w-96 h-40 p-1 resize-y"}
                             required={"reqired"}
+                            type={"text"}
                             onChange={e => setDescription(e.target.value)}
                         />
                     </span>
@@ -68,6 +66,7 @@ const AddMovie = () => {
                         <input
                             className={"w-96 h-8"}
                             required={"reqired"}
+                            type={"text"}
                             onChange={e => setAuthor(e.target.value)}
                         />
                     </span>
@@ -88,6 +87,7 @@ const AddMovie = () => {
                         <input
                             className={"w-96 h-8"}
                             required={"reqired"}
+                            type={"text"}
                             onChange={e => setReleaseDate(e.target.value)}
                         />
                     </span>
@@ -97,6 +97,7 @@ const AddMovie = () => {
                         <input
                             className={"w-96 h-8"}
                             required={"reqired"}
+                            type={"text"}
                             onChange={e => setAgeRating(e.target.value)}
                         />
                     </span>

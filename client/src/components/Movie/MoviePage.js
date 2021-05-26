@@ -10,19 +10,44 @@ import RatingCardContainer from "../Rating/RatingCardContainer";
 const MoviePage = () => {
     const [update] = useState(false);
     const [movie, setMovie] = useState({});
+    const [image, setImage] = useState(null);
+    const [imageName, setImageName] = useState("Select an image");
+    const [hasImage, setHasImage] = useState(false);
     const {id} = useParams();
 
 
     useEffect(() => {
         //Get information about a movie
-        axios.get(`${API_URL}/movie/${id}`)
-            .then((res) => {
-                setMovie(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        axios.get(`${API_URL}/movie/${id}`).then((res) => {
+            setMovie(res.data);
+        }).catch((err) => {
+            console.log(err);
+        });
+
+        axios.get(`${API_URL}/movie/${id}/image`).then((res) => {
+            setHasImage(true);
+        }).catch((err) => {
+            console.log(err);
+        });
     }, [update, id]);
+
+    useEffect(() => {
+        if(image){
+            setImageName(image.name)
+        }
+    }, [image]);
+
+    const uploadImage = () => {
+        const formData = new FormData();
+        formData.append("image", image, image.name);
+
+        axios.post(`${API_URL}/movie/${id}/image`, formData).then((res) => {
+            console.log(res);
+            window.location.reload();
+        }).catch((err) => {
+            console.log(err);
+        });
+    };
 
     return (
         <div>
@@ -37,10 +62,30 @@ const MoviePage = () => {
                 </span>
 
                 <div className={"mt-2 flex flex-row flex-wrap space-y-4"}>
-                    <img className={"text-white w-96 h-full mr-4 animate-fade-in"}
-                         src={`${API_URL}/movie/${id}/image`}
-                         alt={"poster"}
-                    />
+                    {hasImage ? (
+                        <img className={"text-white w-96 h-full mr-4 animate-fade-in"}
+                             src={`${API_URL}/movie/${id}/image`}
+                             alt={"poster"}
+                        />
+                    ) : (
+                        <span className={"flex flex-col space-y-1"}>
+                            <p>Upload a movie poster:</p>
+                            <label className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max cursor-pointer"}>
+                                {imageName}
+                                <input
+                                    className={"w-96 h-8 text-white hidden"}
+                                    type={"file"}
+                                    onChange={e => setImage(e.target.files[0])}
+                                />
+                            </label>
+                            <button
+                                className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max"}
+                                onClick={uploadImage}>
+                                Add image
+                            </button>
+                        </span>
+                    )}
+
 
                     <div className={"mr-4"}>
                         <div className={"movie-info"}>

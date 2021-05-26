@@ -40,6 +40,7 @@ const AddRating = () => {
                         <input
                             className={"w-96 h-8"}
                             required={"required"}
+                            type={"text"}
                             onChange={e => setUsername(e.target.value)}
                         />
                     </div>
@@ -49,6 +50,7 @@ const AddRating = () => {
                         <textarea
                             className={"w-96 h-40 p-1 resize-y"}
                             required={"required"}
+                            type={"text"}
                             onChange={e => setComment(e.target.value)}
                         />
                     </div>
