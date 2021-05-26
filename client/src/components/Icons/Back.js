@@ -1,15 +1,15 @@
 import React from "react";
-import {AiFillHome} from "react-icons/ai";
+import {BiArrowBack} from "react-icons/bi";
 import {IconContext} from "react-icons";
 
 const Home = ({className, size}) => {
     return (
         <div className={` ${className}`}>
             <IconContext.Provider value={{
-                    color: "white",
-                    size: size
-                }}>
-                <AiFillHome/>
+                color: "white",
+                size: size
+            }}>
+                <BiArrowBack/>
             </IconContext.Provider>
         </div>
     );

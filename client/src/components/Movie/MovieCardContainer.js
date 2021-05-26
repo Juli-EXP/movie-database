@@ -11,13 +11,11 @@ const MovieCardContainer = () => {
 
     useEffect(() => {
         //Get a list of all movies
-        axios.get(`${API_URL}/movie`)
-            .then((res) => {
-                setMovies(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        axios.get(`${API_URL}/movie`).then((res) => {
+            setMovies(res.data);
+        }).catch((err) => {
+            console.log(err);
+        });
     }, [update]);
 
     return (

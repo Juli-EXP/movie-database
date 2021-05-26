@@ -4,7 +4,7 @@ import {AiFillStar} from "react-icons/ai";
 
 const RatingStar = ({className}) => {
     return (
-        <div className={`${className}`}>
+        <div className={` ${className}`}>
             <IconContext.Provider value={{color: "yellow"}}>
                 <AiFillStar/>
             </IconContext.Provider>

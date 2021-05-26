@@ -28,6 +28,10 @@
     @apply flex space-x-1
 }
 
+.input-info {
+    @apply w-64 h-8
+}
+
 @layer base {
     * {
         font-family: "Montserrat", sans-serif;
