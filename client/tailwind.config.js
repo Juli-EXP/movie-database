@@ -8,7 +8,7 @@ module.exports = {
                 primary: "var(--primary)",
                 secondary: "var(--secondary)",
                 "accent-primary": "var(--accent-primary)",
-                "accent-secondary": "var(--accent-primary)",
+                "accent-secondary": "var(--accent-secondary)",
             },
             keyframes: {
                 "fade-in": {

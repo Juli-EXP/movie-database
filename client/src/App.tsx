@@ -3,12 +3,12 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import MovieCardContainer from "./components/Movie/MovieCardContainer";
+import MovieCardContainer from "./components/movie/MovieCardContainer";
 import "./App.css";
-import MoviePage from "./components/Movie/MoviePage";
-import AddMovie from "./components/Movie/AddMovie";
-import AddRating from "./components/Rating/AddRating";
-import NotFound from "./components/Error/NotFound";
+import MoviePage from "./components/movie/MoviePage";
+import AddMovie from "./components/movie/AddMovie";
+import AddRating from "./components/rating/AddRating";
+import NotFound from "./components/error/NotFound";
 
 
 function App() {

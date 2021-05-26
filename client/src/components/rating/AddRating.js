@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useParams, Redirect} from "react-router-dom";
 import axios from "axios";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../navbar/Navbar";
 import {API_URL} from "../../Constants";
 
 
@@ -67,7 +67,7 @@ const AddRating = () => {
                     </div>
 
                     <button
-                        className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max"}
+                        className={"add-button"}
                         onClick={submit}>
                         Add rating
                     </button>

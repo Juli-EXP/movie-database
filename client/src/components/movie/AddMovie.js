@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import Navbar from "../Navbar/Navbar";
 import {Redirect} from "react-router-dom";
 import axios from "axios";
+import Navbar from "../navbar/Navbar";
 import {API_URL} from "../../Constants";
 
 
@@ -103,7 +103,7 @@ const AddMovie = () => {
                     </span>
 
                     <button
-                        className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max"}
+                        className={"add-button"}
                         onClick={submit}>
                         Add movie
                     </button>

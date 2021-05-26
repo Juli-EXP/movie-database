@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import axios from "axios";
 import {API_URL} from "../../Constants";
-import RatingStar from "../Icons/RatingStar";
-import Navbar from "../Navbar/Navbar";
-import RatingCardContainer from "../Rating/RatingCardContainer";
+import RatingStar from "../icon/RatingStar";
+import Navbar from "../navbar/Navbar";
+import RatingCardContainer from "../rating/RatingCardContainer";
 
 
 const MoviePage = () => {
+    const history = useHistory();
     const [update] = useState(false);
     const [movie, setMovie] = useState({});
     const [image, setImage] = useState(null);
@@ -22,18 +23,20 @@ const MoviePage = () => {
             setMovie(res.data);
         }).catch((err) => {
             console.log(err);
+            history.push("/404")
         });
 
+        //Check if movie poster exists
         axios.get(`${API_URL}/movie/${id}/image`).then((res) => {
             setHasImage(true);
         }).catch((err) => {
             console.log(err);
         });
-    }, [update, id]);
+    }, [update, id, history]);
 
     useEffect(() => {
-        if(image){
-            setImageName(image.name)
+        if (image) {
+            setImageName(image.name);
         }
     }, [image]);
 
@@ -51,7 +54,7 @@ const MoviePage = () => {
 
     return (
         <div>
-            <Navbar buttonName={"Add rating"} path={`/movie/${id}/rating/add`}/>
+            <Navbar buttonName={"Add rating"} buttonPath={`/movie/${id}/rating/add`}/>
             <div className={"flex flex-col ml-2"}>
                 <span className={"text-white text-2xl flex flex-row flex-wrap"}>
                     <h1 className={"mr-2"}>{movie.title}</h1>
@@ -79,7 +82,7 @@ const MoviePage = () => {
                                 />
                             </label>
                             <button
-                                className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max"}
+                                className={"add-button"}
                                 onClick={uploadImage}>
                                 Add image
                             </button>

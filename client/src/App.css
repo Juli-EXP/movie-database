@@ -5,9 +5,10 @@
 
 :root {
     --background: #161616;
-    --primary: #2f2f2f;
-    --secondary: #404040;
+    --primary: #303030;
+    --secondary: #3c3c3c;
     --accent-primary: #81c784;
+    --accent-secondary: #93cf95;
 }
 
 *::-webkit-scrollbar {
@@ -50,4 +51,8 @@ input[type=number], input[type=text], textarea {
 
 .movie-info {
     @apply flex space-x-1
+}
+
+.add-button {
+    @apply bg-accent-primary hover:bg-accent-secondary rounded-md font-bold px-2 p-1 w-max
 }

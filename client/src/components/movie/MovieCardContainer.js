@@ -2,7 +2,7 @@ import {API_URL} from "../../Constants";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../navbar/Navbar";
 
 
 const MovieCardContainer = () => {
@@ -20,7 +20,7 @@ const MovieCardContainer = () => {
 
     return (
         <div>
-            <Navbar buttonName={"Add movie"} path={"/movie/add"}/>
+            <Navbar buttonName={"Add movie"} buttonPath={"/movie/add"}/>
             <div className={"mt-2 flex flex-wrap"}>
                 {movies.map((element) => (
                     <MovieCard
