@@ -20,8 +20,6 @@ const AddMovie = () => {
             return;
         }
 
-        setRedirect(true);
-
         axios.post(`${API_URL}/movie`, {
             title: title,
             description: description,
@@ -30,9 +28,10 @@ const AddMovie = () => {
             releaseDate: releaseDate,
             ageRating: ageRating,
         }).then((res) => {
-            //console.log(res);
+            setRedirect(true);
         }).catch((err) => {
             console.log(err);
+            //Todo display error
         });
     };
 
@@ -56,7 +55,6 @@ const AddMovie = () => {
                         <textarea
                             className={"w-96 h-40 p-1 resize-y"}
                             required={"reqired"}
-                            type={"text"}
                             onChange={e => setDescription(e.target.value)}
                         />
                     </span>
@@ -83,12 +81,12 @@ const AddMovie = () => {
                     </span>
 
                     <span>
-                        <p>Release data: todo date</p>
+                        <p>Release date</p>
                         <input
                             className={"w-96 h-8"}
                             required={"reqired"}
-                            type={"text"}
-                            onChange={e => setReleaseDate(e.target.value)}
+                            type={"date"}
+                            onChange={e =>setReleaseDate(new Date(e.target.value).getTime() / 1000)}
                         />
                     </span>
 

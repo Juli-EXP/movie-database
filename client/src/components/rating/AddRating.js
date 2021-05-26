@@ -17,16 +17,15 @@ const AddRating = () => {
             return;
         }
 
-        setRedirect(true);
-
         axios.post(`${API_URL}/rating/${id}`, {
             username: username,
             comment: comment,
             rating: rating,
         }).then((res) => {
-            //console.log(res);
+            setRedirect(true);
         }).catch((err) => {
             console.log(err);
+            //Todo display error
         });
     };
 
@@ -50,7 +49,6 @@ const AddRating = () => {
                         <textarea
                             className={"w-96 h-40 p-1 resize-y"}
                             required={"required"}
-                            type={"text"}
                             onChange={e => setComment(e.target.value)}
                         />
                     </div>

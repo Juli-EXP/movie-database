@@ -43,7 +43,7 @@ p {
     color: white;
 }
 
-input[type=number], input[type=text], textarea {
+input[type=number], input[type=text], input[type=date], textarea {
     border-radius: 5px;
     background-color: var(--primary);
     color: white;
