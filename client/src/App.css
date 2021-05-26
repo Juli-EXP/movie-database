@@ -24,32 +24,30 @@
     background-color: var(--secondary);
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    background-color: var(--background);
+}
+
+p {
+    color: white;
+}
+
+input, textarea {
+    border-radius: 5px;
+    background-color: var(--primary);
+    color: white;
+}
+
 .movie-info {
     @apply flex space-x-1
 }
-
-.input-info {
-    @apply w-64 h-8
-}
-
-@layer base {
-    * {
-        font-family: "Montserrat", sans-serif;
-    }
-
-    body {
-        background-color: var(--background);
-    }
-
-    p {
-        color: white;
-    }
-
-    input, textarea {
-        border-radius: 5px;
-        background-color: var(--primary);
-        color: white;
-    }
-}
-
-

@@ -1,25 +1,30 @@
 import React, {useState} from "react";
-import {useParams} from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
+import {useParams, Redirect} from "react-router-dom";
 import axios from "axios";
+import Navbar from "../Navbar/Navbar";
 import {API_URL} from "../../Constants";
 
 
 const AddRating = () => {
+    const [redirect, setRedirect] = useState(false);
     const [username, setUsername] = useState("");
     const [comment, setComment] = useState("");
     const [rating, setRating] = useState(0);
     const {id} = useParams();
 
     const submit = () => {
-        console.log(username, comment, rating);
+        if (!username || !comment || rating < 1 || rating > 10) {
+            return;
+        }
+
+        setRedirect(true);
 
         axios.post(`${API_URL}/rating/${id}`, {
             username: username,
             comment: comment,
             rating: rating,
         }).then((res) => {
-            console.log(res);
+            //console.log(res);
         }).catch((err) => {
             console.log(err);
         });
@@ -28,32 +33,48 @@ const AddRating = () => {
     return (
         <div>
             <Navbar backPath={`/movie/${id}`}/>
-            <form className={"ml-2 m-1 flex flex-col space-y-4"}>
-                <div>
-                    <p>Username</p>
-                    <input className={"input-info"} onChange={e => setUsername(e.target.value)}/>
-                </div>
+            <div className={"mt-16 flex place-content-center"}>
+                <form className={"ml-2 m-1 flex flex-col space-y-4"}>
+                    <div>
+                        <p>Username</p>
+                        <input
+                            className={"w-96 h-8"}
+                            required={"required"}
+                            onChange={e => setUsername(e.target.value)}
+                        />
+                    </div>
 
-                <div>
-                    <p>Comment</p>
-                    <textarea className={"input-info resize-y"} onChange={e => setComment(e.target.value)}/>
-                </div>
+                    <div>
+                        <p>Comment</p>
+                        <textarea
+                            className={"w-96 h-40 p-1 resize-y"}
+                            required={"required"}
+                            onChange={e => setComment(e.target.value)}
+                        />
+                    </div>
 
-                <div>
-                    <p>Rating</p>
-                    <input
-                        className={"input-info"}
-                        type={"number"}
-                        min={0.0} max={10.0}
-                        onChange={e => setRating(e.target.value)}/>
-                </div>
+                    <div>
+                        <p>Rating</p>
+                        <input
+                            className={"w-96 h-8"}
+                            required={"reqired"}
+                            type={"number"}
+                            min={1.0} max={10.0}
+                            onChange={e => setRating(e.target.value)}
+                        />
+                    </div>
 
-                <button
-                    className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max"}
-                    onClick={submit}>
-                    Add movie
-                </button>
-            </form>
+                    <button
+                        className={"bg-accent-primary rounded-md font-bold px-2 p-1 w-max"}
+                        onClick={submit}>
+                        Add rating
+                    </button>
+                </form>
+            </div>
+
+            {redirect ? (
+                <Redirect to={`/movie/${id}`}/>
+            ) : null}
         </div>
     );
 };

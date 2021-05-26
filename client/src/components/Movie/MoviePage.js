@@ -28,14 +28,16 @@ const MoviePage = () => {
         <div>
             <Navbar buttonName={"Add rating"} path={`/movie/${id}/rating/add`}/>
             <div className={"flex flex-col ml-2"}>
-                <span className={"text-white text-2xl flex flex-row"}>
+                <span className={"text-white text-2xl flex flex-row flex-wrap"}>
                     <h1 className={"mr-2"}>{movie.title}</h1>
-                    <RatingStar className={"m-0.5 "}/>
-                    <p>{Number((movie.rating || 0.0).toFixed(1))}</p>
+                    <span className={"flex flex-row"}>
+                        <RatingStar className={"m-0.5 "}/>
+                        <p>{Number((movie.rating || 0.0).toFixed(1))}</p>
+                    </span>
                 </span>
 
-                <div className={"flex flex-row flex-wrap space-y-4"}>
-                    <img className={"text-white w-96 mr-4 animate-fade-in"}
+                <div className={"mt-2 flex flex-row flex-wrap space-y-4"}>
+                    <img className={"text-white w-96 h-full mr-4 animate-fade-in"}
                          src={`${API_URL}/movie/${id}/image`}
                          alt={"poster"}
                     />
