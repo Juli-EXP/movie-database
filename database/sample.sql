@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS movie (
     description VARCHAR(1000),
 	director VARCHAR(50) NOT NULL,
 	length INT unsigned NOT NULL,
-	release_date INT unsigned NOT NULL,
+	release_date BIGINT NOT NULL,
 	genre VARCHAR(50) NOT NULL,
 	age_rating VARCHAR(5) NOT NULL,
 	rating DOUBLE DEFAULT "0.0" NOT NULL,

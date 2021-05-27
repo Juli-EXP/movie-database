@@ -14,18 +14,21 @@ const RatingCardContainer = (props: RatingCardContainerProperty) => {
     const [ratings, setRatings] = useState<Array<Rating>>([]);
 
     useEffect(() => {
-        axios.get(`${API_URL}/rating/${movieID}`).then((res) => {
-            setRatings(res.data);
-        }).catch((err) => {
-            console.log(err);
-        });
+        axios.get(`${API_URL}/rating/${movieID}`)
+            .then((res) => {
+                setRatings(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, [movieID]);
 
     return (
         <div className={"flex flex-col space-y-2"}>
-            {ratings.map((element) => (
+            {ratings.map((element, index) => (
                 <RatingCard
                     rating={element}
+                    key={index}
                 />
             ))}
         </div>

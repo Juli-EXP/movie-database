@@ -10,7 +10,7 @@ data class Movie(
     val description: String = "",
     val director: String = "",
     val length: Int = 0,
-    val releaseDate: Int = 0,       //Stored as unix timestamp
+    val releaseDate: Long = 0,       //Stored as unix timestamp
     val genre: String = "",
     val ageRating: String = "",
     val rating: Double = 0.0,

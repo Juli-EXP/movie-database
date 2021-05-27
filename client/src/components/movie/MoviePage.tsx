@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import axios from "axios";
 import RatingCardContainer from "../rating/RatingCardContainer";
+import {Movie} from "../model/Movie";
 import Navbar from "../navbar/Navbar";
 import RatingStar from "../icon/RatingStar";
 import {API_URL} from "../../Constants";
@@ -9,36 +10,50 @@ import {API_URL} from "../../Constants";
 
 const MoviePage = () => {
     const history = useHistory();
-    const [update] = useState(false);
-    const [movie, setMovie] = useState({});
-    const [image, setImage] = useState(null);
-    const [imageName, setImageName] = useState("Select an image");
-    const [hasImage, setHasImage] = useState(false);
-    const {id} = useParams();
+    const [movie, setMovie] = useState<Movie>({
+        ageRating: "",
+        description: "",
+        director: "",
+        id: 0,
+        length: 0,
+        rating: 0,
+        releaseDate: 0,
+        title: ""
+    });
+    const [image, setImage] = useState<File | null>(null);
+    const [imageName, setImageName] = useState<string>("Select an image");
+    const [hasImage, setHasImage] = useState<boolean>(false);
+    const {id} = useParams<{ id: string }>();
 
 
     useEffect(() => {
         //Get information about a movie
-        axios.get(`${API_URL}/movie/${id}`).then((res) => {
-            setMovie(res.data);
-        }).catch((err) => {
-            console.log(err);
-            history.push("/404");
-        });
+        axios.get(`${API_URL}/movie/${id}`)
+            .then((res) => {
+                setMovie(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+                history.push("/404");
+            });
 
         //Check if movie poster exists
-        axios.get(`${API_URL}/movie/${id}/image`).then((res) => {
-            setHasImage(true);
-        }).catch((err) => {
-            console.log(err);
-        });
-    }, [update, id, history]);
+        axios.get(`${API_URL}/movie/${id}/image`)
+            .then((res) => {
+                setHasImage(true);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [id, history]);
+
 
     useEffect(() => {
         if (image) {
             setImageName(image.name);
         }
     }, [image]);
+
 
     const uploadImage = () => {
         if (!image) {
@@ -55,6 +70,7 @@ const MoviePage = () => {
             console.log(err);
         });
     };
+
 
     return (
         <div>
@@ -81,9 +97,15 @@ const MoviePage = () => {
                                 {imageName}
                                 <input
                                     className={"w-96 h-8 text-white hidden"}
-                                    required={"required"}
+                                    required={true}
                                     type={"file"}
-                                    onChange={e => setImage(e.target.files[0])}
+                                    onChange={e => {
+                                        if (e.target.files) {
+                                            setImage(e.target.files[0]);
+                                        } else {
+                                            setImage(null)
+                                        }
+                                    }}
                                 />
                             </label>
                             <button
@@ -119,7 +141,7 @@ const MoviePage = () => {
                         </div>
                     </div>
 
-                    <RatingCardContainer movieID={id}/>
+                    <RatingCardContainer movieID={parseInt(id)}/>
                 </div>
 
 

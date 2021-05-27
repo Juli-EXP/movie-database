@@ -11,20 +11,23 @@ const MovieCardContainer = () => {
 
     useEffect(() => {
         //Get a list of all movies
-        axios.get(`${API_URL}/movie`).then((res) => {
-            setMovies(res.data);
-        }).catch((err) => {
-            console.log(err);
-        });
-    });
+        axios.get(`${API_URL}/movie`)
+            .then((res) => {
+                setMovies(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    },[]);
 
     return (
         <div>
             <Navbar buttonName={"Add movie"} buttonPath={"/movie/add"}/>
             <div className={"mt-2 flex flex-wrap"}>
-                {movies.map((element) => (
+                {movies.map((element, index) => (
                     <MovieCard
                         movie={element}
+                        key={index}
                     />
                 ))}
             </div>

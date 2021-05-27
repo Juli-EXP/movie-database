@@ -6,13 +6,14 @@ import {API_URL} from "../../Constants";
 
 
 const AddRating = () => {
-    const [redirect, setRedirect] = useState(false);
-    const [username, setUsername] = useState("");
-    const [comment, setComment] = useState("");
-    const [rating, setRating] = useState(0);
-    const {id} = useParams();
+    const [redirect, setRedirect] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>("");
+    const [comment, setComment] = useState<string>("");
+    const [rating, setRating] = useState<number>(0);
+    const {id} = useParams<{ id: string }>();
 
-    useEffect(() => {}, [redirect])
+    useEffect(() => {
+    }, [redirect]);
 
     const submit = () => {
         if (!username || !comment || rating < 1 || rating > 10) {
@@ -26,7 +27,7 @@ const AddRating = () => {
             comment: comment,
             rating: rating,
         }).then((res) => {
-
+            console.log(res)
         }).catch((err) => {
             console.log(err);
             //Todo display error
@@ -42,7 +43,7 @@ const AddRating = () => {
                         <p>Username</p>
                         <input
                             className={"w-96 h-8"}
-                            required={"required"}
+                            required={true}
                             type={"text"}
                             onChange={e => setUsername(e.target.value)}
                         />
@@ -52,7 +53,7 @@ const AddRating = () => {
                         <p>Comment</p>
                         <textarea
                             className={"w-96 h-40 p-1 resize-y"}
-                            required={"required"}
+                            required={true}
                             onChange={e => setComment(e.target.value)}
                         />
                     </div>
@@ -61,10 +62,10 @@ const AddRating = () => {
                         <p>Rating</p>
                         <input
                             className={"w-96 h-8"}
-                            required={"reqired"}
+                            required={true}
                             type={"number"}
                             min={1.0} max={10.0}
-                            onChange={e => setRating(e.target.value)}
+                            onChange={e => setRating(parseInt(e.target.value))}
                         />
                     </div>
 

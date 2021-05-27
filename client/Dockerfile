@@ -1,5 +1,19 @@
+FROM node:14.17.0-alpine as builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
 FROM nginx:1.20.0-alpine
 
-COPY ./build /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf.template /etc/nginx/templates/nginx.conf.template
+
+CMD ["nginx", "-g", "daemon off;"]

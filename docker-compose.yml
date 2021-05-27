@@ -9,8 +9,13 @@ services:
       - movie-database-network
     depends_on:
       - db
+    environment:
+      HTTP_PORT: 80
+      HTTPS_PORT: 443
+      NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx
     ports:
       - "80:80"
+      - "443:443"
     restart: unless-stopped
 
   backend:
@@ -29,8 +34,6 @@ services:
       IMAGE_PATH: /images
     volumes:
       - ./images:/images
-    ports:
-      - "4000:4000"
     restart: unless-stopped
 
   db:

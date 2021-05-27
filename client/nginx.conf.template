@@ -1,0 +1,23 @@
+worker_processes 1;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+
+    server {
+        listen ${HTTP_PORT};
+
+        root /usr/share/nginx/html;
+
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+
+        location /api {
+            proxy_pass http://backend:4000/api;
+        }
+    }
+}

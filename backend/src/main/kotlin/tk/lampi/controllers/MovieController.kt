@@ -17,7 +17,7 @@ object MovieController {
             rs.getString("description") ?: "",
             rs.getString("director"),
             rs.getInt("length"),
-            rs.getInt("release_date"),
+            rs.getLong("release_date"),
             rs.getString("genre"),
             rs.getString("age_rating"),
             rs.getDouble("rating"),
@@ -80,7 +80,7 @@ object MovieController {
         ps.setString(2, movie.description)
         ps.setString(3, movie.director)
         ps.setInt(4, movie.length)
-        ps.setInt(5, movie.releaseDate)
+        ps.setLong(5, movie.releaseDate)
         ps.setString(6, movie.genre)
         ps.setString(7, movie.ageRating)
 
@@ -99,7 +99,7 @@ object MovieController {
         ps.setString(2, movie.description)
         ps.setString(3, movie.director)
         ps.setInt(4, movie.length)
-        ps.setInt(5, movie.releaseDate)
+        ps.setLong(5, movie.releaseDate)
         ps.setString(6, movie.genre)
         ps.setString(7, movie.ageRating)
 

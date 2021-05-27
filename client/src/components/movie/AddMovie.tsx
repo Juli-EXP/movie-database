@@ -6,13 +6,13 @@ import {API_URL} from "../../Constants";
 
 
 const AddMovie = () => {
-    const [redirect, setRedirect] = useState(false);
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [director, setDirector] = useState("");
-    const [length, setLength] = useState(0);
-    const [releaseDate, setReleaseDate] = useState(0);
-    const [ageRating, setAgeRating] = useState("");
+    const [redirect, setRedirect] = useState<boolean>(false);
+    const [title, setTitle] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [director, setDirector] = useState<string>("");
+    const [length, setLength] = useState<number>(0);
+    const [releaseDate, setReleaseDate] = useState<number>(0);
+    const [ageRating, setAgeRating] = useState<string>("");
 
     const submit = () => {
         if (!title || !description || !director ||
@@ -21,22 +21,21 @@ const AddMovie = () => {
         }
 
         setRedirect(true);  //Todo change
-
-        axios.post(`${API_URL}/movie`, {
+        let data = {
             title: title,
             description: description,
             director: director,
             length: length,
             releaseDate: releaseDate,
             ageRating: ageRating,
-        }).then((res) => {
-
+        }
+        console.log(data)
+        axios.post(`${API_URL}/movie`, data).then((res) => {
+            console.log(res)
         }).catch((err) => {
             console.log(err);
             //Todo display error
         });
-
-        //Todo useeffect
     };
 
     return (
@@ -48,7 +47,7 @@ const AddMovie = () => {
                         <p>Title</p>
                         <input
                             className={"w-96 h-8"}
-                            required={"reqired"}
+                            required={true}
                             type={"text"}
                             onChange={e => setTitle(e.target.value)}
                         />
@@ -58,7 +57,7 @@ const AddMovie = () => {
                         <p>Description</p>
                         <textarea
                             className={"w-96 h-40 p-1 resize-y"}
-                            required={"reqired"}
+                            required={true}
                             onChange={e => setDescription(e.target.value)}
                         />
                     </span>
@@ -67,7 +66,7 @@ const AddMovie = () => {
                         <p>Director</p>
                         <input
                             className={"w-96 h-8"}
-                            required={"reqired"}
+                            required={true}
                             type={"text"}
                             onChange={e => setDirector(e.target.value)}
                         />
@@ -77,10 +76,10 @@ const AddMovie = () => {
                         <p>Length</p>
                         <input
                             className={"w-96 h-8"}
-                            required={"reqired"}
+                            required={true}
                             type={"number"}
                             min={1} max={60000}
-                            onChange={e => setLength(e.target.value)}
+                            onChange={e => setLength(parseInt(e.target.value))}
                         />
                     </span>
 
@@ -88,9 +87,9 @@ const AddMovie = () => {
                         <p>Release date</p>
                         <input
                             className={"w-96 h-8"}
-                            required={"reqired"}
+                            required={true}
                             type={"date"}
-                            onChange={e =>setReleaseDate(new Date(e.target.value).getTime() / 1000)}
+                            onChange={e => setReleaseDate(new Date(e.target.value).getTime() / 1000)}
                         />
                     </span>
 
@@ -98,7 +97,7 @@ const AddMovie = () => {
                         <p>Age Rating</p>
                         <input
                             className={"w-96 h-8"}
-                            required={"reqired"}
+                            required={true}
                             type={"text"}
                             onChange={e => setAgeRating(e.target.value)}
                         />
