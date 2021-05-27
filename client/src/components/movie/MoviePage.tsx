@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import axios from "axios";
-import {API_URL} from "../../Constants";
-import RatingStar from "../icon/RatingStar";
-import Navbar from "../navbar/Navbar";
 import RatingCardContainer from "../rating/RatingCardContainer";
+import Navbar from "../navbar/Navbar";
+import RatingStar from "../icon/RatingStar";
+import {API_URL} from "../../Constants";
 
 
 const MoviePage = () => {
@@ -23,7 +23,7 @@ const MoviePage = () => {
             setMovie(res.data);
         }).catch((err) => {
             console.log(err);
-            history.push("/404")
+            history.push("/404");
         });
 
         //Check if movie poster exists
@@ -41,6 +41,10 @@ const MoviePage = () => {
     }, [image]);
 
     const uploadImage = () => {
+        if (!image) {
+            return;
+        }
+
         const formData = new FormData();
         formData.append("image", image, image.name);
 
@@ -77,6 +81,7 @@ const MoviePage = () => {
                                 {imageName}
                                 <input
                                     className={"w-96 h-8 text-white hidden"}
+                                    required={"required"}
                                     type={"file"}
                                     onChange={e => setImage(e.target.files[0])}
                                 />
@@ -106,7 +111,7 @@ const MoviePage = () => {
                         </div>
                         <div className={"movie-info"}>
                             <p className={"font-bold"}>Release date:</p>
-                            <p>{new Date(movie.releaseDate).toLocaleDateString()}</p>
+                            <p>{new Date(movie.releaseDate * 1000).toLocaleDateString()}</p>
                         </div>
                         <div className={"movie-info"}>
                             <p className={"font-bold"}>Age rating:</p>

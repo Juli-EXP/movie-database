@@ -80,7 +80,7 @@ object MovieController {
         ps.setString(2, movie.description)
         ps.setString(3, movie.director)
         ps.setInt(4, movie.length)
-        ps.setInt(5, (System.currentTimeMillis() / 1000).toInt())
+        ps.setInt(5, movie.releaseDate)
         ps.setString(6, movie.genre)
         ps.setString(7, movie.ageRating)
 

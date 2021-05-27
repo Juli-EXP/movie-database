@@ -1,13 +1,13 @@
-import {API_URL} from "../../Constants";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import Navbar from "../navbar/Navbar";
+import {Movie} from "../model/Movie";
+import {API_URL} from "../../Constants";
 
 
 const MovieCardContainer = () => {
-    const [update] = useState(false);
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState<Array<Movie>>([]);
 
     useEffect(() => {
         //Get a list of all movies
@@ -16,7 +16,7 @@ const MovieCardContainer = () => {
         }).catch((err) => {
             console.log(err);
         });
-    }, [update]);
+    });
 
     return (
         <div>
@@ -25,7 +25,6 @@ const MovieCardContainer = () => {
                 {movies.map((element) => (
                     <MovieCard
                         movie={element}
-                        key={element.id}
                     />
                 ))}
             </div>

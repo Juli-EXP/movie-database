@@ -9,30 +9,34 @@ const AddMovie = () => {
     const [redirect, setRedirect] = useState(false);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [author, setAuthor] = useState("");
+    const [director, setDirector] = useState("");
     const [length, setLength] = useState(0);
     const [releaseDate, setReleaseDate] = useState(0);
     const [ageRating, setAgeRating] = useState("");
 
     const submit = () => {
-        if (!title || !description || !author ||
+        if (!title || !description || !director ||
             !ageRating || !releaseDate || !length) {
             return;
         }
 
+        setRedirect(true);  //Todo change
+
         axios.post(`${API_URL}/movie`, {
             title: title,
             description: description,
-            author: author,
+            director: director,
             length: length,
             releaseDate: releaseDate,
             ageRating: ageRating,
         }).then((res) => {
-            setRedirect(true);
+
         }).catch((err) => {
             console.log(err);
             //Todo display error
         });
+
+        //Todo useeffect
     };
 
     return (
@@ -60,12 +64,12 @@ const AddMovie = () => {
                     </span>
 
                     <span>
-                        <p>Author</p>
+                        <p>Director</p>
                         <input
                             className={"w-96 h-8"}
                             required={"reqired"}
                             type={"text"}
-                            onChange={e => setAuthor(e.target.value)}
+                            onChange={e => setDirector(e.target.value)}
                         />
                     </span>
 

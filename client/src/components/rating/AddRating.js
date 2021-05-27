@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams, Redirect} from "react-router-dom";
 import axios from "axios";
 import Navbar from "../navbar/Navbar";
@@ -12,17 +12,21 @@ const AddRating = () => {
     const [rating, setRating] = useState(0);
     const {id} = useParams();
 
+    useEffect(() => {}, [redirect])
+
     const submit = () => {
         if (!username || !comment || rating < 1 || rating > 10) {
             return;
         }
+
+        setRedirect(true);  //Todo change
 
         axios.post(`${API_URL}/rating/${id}`, {
             username: username,
             comment: comment,
             rating: rating,
         }).then((res) => {
-            setRedirect(true);
+
         }).catch((err) => {
             console.log(err);
             //Todo display error

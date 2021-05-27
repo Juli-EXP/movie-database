@@ -11,7 +11,7 @@ import AddRating from "./components/rating/AddRating";
 import NotFound from "./components/error/NotFound";
 
 
-function App() {
+const App = () => {
     return (
         <Router>
             <Switch>
