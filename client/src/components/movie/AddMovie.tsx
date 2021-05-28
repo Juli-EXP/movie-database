@@ -21,16 +21,15 @@ const AddMovie = () => {
         }
 
         setRedirect(true);  //Todo change
-        let data = {
+
+        axios.post(`${API_URL}/movie`, {
             title: title,
             description: description,
             director: director,
             length: length,
             releaseDate: releaseDate,
             ageRating: ageRating,
-        }
-        console.log(data)
-        axios.post(`${API_URL}/movie`, data).then((res) => {
+        }).then((res) => {
             console.log(res)
         }).catch((err) => {
             console.log(err);

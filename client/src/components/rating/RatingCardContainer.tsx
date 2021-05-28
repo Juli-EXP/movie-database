@@ -7,10 +7,11 @@ import {API_URL} from "../../Constants";
 
 interface RatingCardContainerProperty {
     movieID: number
+    className?: String
 }
 
 const RatingCardContainer = (props: RatingCardContainerProperty) => {
-    const {movieID} = props
+    const {movieID, className} = props
     const [ratings, setRatings] = useState<Array<Rating>>([]);
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const RatingCardContainer = (props: RatingCardContainerProperty) => {
     }, [movieID]);
 
     return (
-        <div className={"flex flex-col space-y-2"}>
+        <div className={`flex flex-col space-y-2 ${className}`}>
             {ratings.map((element, index) => (
                 <RatingCard
                     rating={element}

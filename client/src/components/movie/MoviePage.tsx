@@ -84,7 +84,7 @@ const MoviePage = () => {
                     </span>
                 </span>
 
-                <div className={"mt-2 flex flex-row flex-wrap space-y-4"}>
+                <div className={"mt-2 mb-4 flex flex-row flex-wrap space-y-4"}>
                     {hasImage ? (
                         <img className={"text-white w-96 h-full mr-4 animate-fade-in"}
                              src={`${API_URL}/movie/${id}/image`}

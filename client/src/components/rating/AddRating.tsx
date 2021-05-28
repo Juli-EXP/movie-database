@@ -65,7 +65,7 @@ const AddRating = () => {
                             required={true}
                             type={"number"}
                             min={1.0} max={10.0}
-                            onChange={e => setRating(parseInt(e.target.value))}
+                            onChange={e => setRating(parseFloat(e.target.value))}
                         />
                     </div>
 
