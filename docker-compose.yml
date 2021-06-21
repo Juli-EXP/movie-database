@@ -49,8 +49,6 @@ services:
     volumes:
       - ./database/sample.sql:/docker-entrypoint-initdb.d/sample.sql
       - movie-database-db_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
     restart: unless-stopped
 
   adminer:
