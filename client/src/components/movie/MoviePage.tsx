@@ -117,7 +117,7 @@ const MoviePage = () => {
                     )}
 
 
-                    <div className={"mr-4"}>
+                    <div className={"mr-4 w-1/3"}>
                         <div className={"movie-info"}>
                             <p className={"font-bold"}>Description:</p>
                             <p>{movie.description}</p>
